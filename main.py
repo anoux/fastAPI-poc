@@ -4,15 +4,24 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-ITEMS_SUPER = {
-"yerba": 200, 
-"birra": 95, 
-"vino": 350, 
-"chocolate": 170, 
-"yogur": 95, 
-"frutigram": 75,
-"leche en polvo": 80
-}
+
+ITEMS_SUPER = [
+        { "Name": "birra", "Price": 195, "id": 1},
+        { "Name": "queso", "Price": 495, "id": 2},
+        { "Name": "yogur", "Price": 935, "id": 3},
+        { "Name": "chocolate", "Price": 395, "id": 4},
+        { "Name": "leche en polvo con espacios", "Price": 195, "id": 5},
+        ]
+
+# ITEMS_SUPER = {
+# "yerba": 200, 
+# "birra": 95, 
+# "vino": 350, 
+# "chocolate": 170, 
+# "yogur": 95, 
+# "frutigram": 75,
+# "leche en polvo": 80
+# }
 STRING = "aslkjdhflkajshdflkajhdflkajshd"
 
 # @app.get("/")
@@ -20,14 +29,26 @@ STRING = "aslkjdhflkajshdflkajhdflkajshd"
 #     return {"Hello": "World"}
 
 @app.get("/items")
-def read_root():
+def get_items():
 	print("Estoy en items")
 	return ITEMS_SUPER
 	
-@app.get("/items/birra")
-def read_root(q: Optional[str] = None):
-	print("Estoy en items")
-	return ITEMS_SUPER["birra"]
+# @app.get("/items/birra")
+# def get_item():
+	# print("Estoy en items")
+	# return ITEMS_SUPER["birra"]
+
+@app.get("/items/{item_id}")
+def get_item(item_id):
+    try:
+        return "holis"
+        # return ITEMS_SUPER[item_id]
+    except KeyError as e:
+        return "Item not found : " + str(e)
+
+
+
+
 
 @app.get("/solve")
 def solve_problem(q: Optional[str] = []):
