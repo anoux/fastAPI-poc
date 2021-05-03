@@ -13,15 +13,6 @@ ITEMS_SUPER = [
         { "Name": "leche en polvo con espacios", "Price": 195, "id": 5},
         ]
 
-# ITEMS_SUPER = {
-# "yerba": 200, 
-# "birra": 95, 
-# "vino": 350, 
-# "chocolate": 170, 
-# "yogur": 95, 
-# "frutigram": 75,
-# "leche en polvo": 80
-# }
 STRING = "aslkjdhflkajshdflkajhdflkajshd"
 
 # @app.get("/")
@@ -40,11 +31,11 @@ def get_items():
 
 @app.get("/items/{item_id}")
 def get_item(item_id):
-    try:
-        return "holis"
-        # return ITEMS_SUPER[item_id]
-    except KeyError as e:
-        return "Item not found : " + str(e)
+	for item in ITEMS_SUPER:
+		if int(item_id) == item["id"]:
+			return item
+	return {"Message":"No lo encontré"}
+
 
 
 
